@@ -1,0 +1,17 @@
+---
+export interface Props {
+    label: string;
+}
+
+
+const { label } = Astro.props;
+
+---
+
+<button id="button">{label}</button>
+<script>
+    function handleClick () {
+        console.log("button clicked!");
+        }
+        document.getElementById("button").addEventListener("click", handleClick);
+</script>
