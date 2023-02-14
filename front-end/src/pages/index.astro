@@ -1,11 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Button from "../components/Button.astro";
+import ReactButton from "../components/react-button";
 ---
 
 <Layout title="Parking lot">
 	<main>
 		<h1>parking lot</h1>
+		<ReactButton client:visible />
 
 	</main>
 </Layout>
