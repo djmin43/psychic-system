@@ -5,6 +5,9 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 public class Member {
@@ -26,11 +29,9 @@ public class Member {
     @NotBlank
     private String password;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "car_id")
-    private Car car;
 
-
+    @OneToMany(mappedBy = "member")
+    private List<Car> cars = new ArrayList<>();
 
 
 }
