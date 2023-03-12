@@ -17,7 +17,10 @@ public class Car {
     @Column(name = "car_id")
     private Long id;
 
-
+    @NotBlank
+    private String registrationNumber;
+    @NotBlank
+    private String carName;
     private String imageUrl;
 
 }
