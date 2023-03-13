@@ -1,6 +1,7 @@
 package mindongjoon.parkinglot.domain;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
@@ -9,5 +10,19 @@ import java.time.LocalDateTime;
 @Getter
 public class Reservation {
 
-    private LocalDateTime
+    @Id
+    @GeneratedValue
+    @Column(name = "reservation_id")
+    private Long id;
+
+    @NotBlank
+    private LocalDateTime startTime;
+
+    @NotBlank
+    private LocalDateTime endTime;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Reservation reservation;
+
 }

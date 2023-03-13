@@ -33,5 +33,7 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Car> cars = new ArrayList<>();
 
+    @OneToMany(mappedBy = "reservation")
+    private List<Reservation> reservations = new ArrayList<>();
 
 }
