@@ -33,7 +33,7 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Car> cars = new ArrayList<>();
 
-    @OneToMany(mappedBy = "reservation")
+    @OneToMany(mappedBy = "member")
     private List<Reservation> reservations = new ArrayList<>();
 
 }
