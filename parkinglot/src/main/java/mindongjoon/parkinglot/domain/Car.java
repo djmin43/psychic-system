@@ -7,6 +7,7 @@ import lombok.Setter;
 
 @Entity
 @Getter
+@Setter
 public class Car {
 
     @Id
@@ -25,6 +26,22 @@ public class Car {
     private Member member;
 
     // domain method
+    public static Car createCar(String registrationNumber, String carName, String imageUrl, Member member) {
+        Car car = new Car();
+        car.setRegistrationNumber(registrationNumber);
+        car.setCarName(carName);
+        car.setImageUrl(imageUrl);
+        car.setMember(member);
+        return car;
+    }
+//    public static Member createMember(String name, String password, String email) {
+//        Member member = new Member();
+//        member.setName(name);
+//        member.setEmail(email);
+//        member.setPassword(password);
+//        return member;
+//    }
+
 
 
 
