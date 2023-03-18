@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.ErrorResponseException;
 
 import java.time.LocalDateTime;
 
@@ -29,6 +30,9 @@ public class Reservation {
 
     // domain methods
     public static Reservation createReservation(LocalDateTime startAt, LocalDateTime endAt, Member member) {
+        if (startAt.isAfter(endAt)) {
+            throw new IllegalStateException("예약 시작 시간이 예약 끝 시간보다 뒤입니다.");
+        }
         Reservation reservation = new Reservation();
         reservation.setStartAt(startAt);
         reservation.setEndAt(endAt);
