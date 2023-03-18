@@ -24,6 +24,9 @@ public class Car {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    // domain method
+
+
 
 
 }
