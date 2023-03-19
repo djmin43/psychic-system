@@ -27,6 +27,11 @@ public class ReservationService {
     /**
      * 예약하기
      */
+    @Transactional
+    public Long add(Reservation reservation) {
+        reservationRepository.save(reservation);
+        return reservation.getId();
+    }
 
     /**
      * 반복예약
@@ -35,10 +40,21 @@ public class ReservationService {
     /**
      * 예약변경
      */
+    @Transactional
+    public Long change(Long id, LocalDateTime startAt, LocalDateTime endAt) {
+        Reservation findReservation = reservationRepository.findOne(id);
+        findReservation.setStartAt(startAt);
+        findReservation.setEndAt(endAt);
+        return findReservation.getId();
+    }
 
     /**
      * 예약 취소 by id
      */
+    @Transactional
+    public void cancel(Long id) {
+        reservationRepository.delete(id);
+    }
 
     /**
      * 예약 취소 by Dates

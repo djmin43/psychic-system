@@ -34,4 +34,10 @@ public class ReservationRepository {
                 .getResultList();
     }
 
+    @Transactional
+    public void delete(Long id) {
+        Reservation reservation = em.find(Reservation.class, id);
+        em.remove(reservation);
+    }
+
 }
