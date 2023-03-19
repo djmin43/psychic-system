@@ -24,6 +24,27 @@ public class ReservationService {
         return reservationRepository.findByRange(startAt, endAt);
     }
 
+    /**
+     * 예약하기
+     */
+
+    /**
+     * 반복예약
+     */
+
+    /**
+     * 예약변경
+     */
+
+    /**
+     * 예약 취소 by id
+     */
+
+    /**
+     * 예약 취소 by Dates
+     */
+
+
 
 
 }
