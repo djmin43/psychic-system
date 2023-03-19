@@ -34,16 +34,5 @@ public class Car {
         car.setMember(member);
         return car;
     }
-//    public static Member createMember(String name, String password, String email) {
-//        Member member = new Member();
-//        member.setName(name);
-//        member.setEmail(email);
-//        member.setPassword(password);
-//        return member;
-//    }
-
-
-
-
 
 }

@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -26,32 +27,29 @@ public class ReservationRepositoryTest {
 
     @Test
     public void save() {
-        LocalDateTime start = getStartTime();
-        LocalDateTime end = getEndTime();
+        LocalDateTime start = getLocalDateTime(2023, 3, 19, 3, 5);
+        LocalDateTime end = getLocalDateTime(2023, 3, 20, 3, 5);
         Member newMember = getNewMember();
         Reservation reservation = getReservation(start, end, newMember);
         reservationRepository.save(reservation);
         assertThat(reservation.getEndAt()).isEqualTo(end);
     }
 
-    private static LocalDateTime getEndTime() {
-        LocalDateTime end = LocalDateTime.of(2023, 3, 18, 3, 05);
-        return end;
-    }
 
-    private static LocalDateTime getStartTime() {
-        LocalDateTime start = LocalDateTime.of(2023, 3, 18, 2, 05);
-        return start;
+    private static LocalDateTime getLocalDateTime(int year, int month, int dayOfMonth, int hour, int minute) {
+        return LocalDateTime.of(year, month, dayOfMonth, hour, minute);
     }
 
     private static Reservation getReservation(LocalDateTime start, LocalDateTime end, Member newMember) {
-        Reservation reservation = Reservation.createReservation(start, end, newMember);
-        return reservation;
+        return Reservation.createReservation(start, end, newMember);
     }
 
     @Test
     public void findOne() {
-        Reservation reservation = getReservation(getStartTime(), getEndTime(), getNewMember());
+        Reservation reservation = getReservation(
+                getLocalDateTime(2023, 3, 19, 1, 2),
+                getLocalDateTime(2023, 3, 20, 1, 2),
+                getNewMember());
         reservationRepository.save(reservation);
         Reservation findReservation = reservationRepository.findOne(reservation.getId());
         assertThat(reservation.getId()).isEqualTo(findReservation.getId());
@@ -61,6 +59,25 @@ public class ReservationRepositoryTest {
         Member newMember = Member.createMember("min", "1234", "dj.min43@gmail.com");
         memberRepository.save(newMember);
         return newMember;
+    }
+
+    @Test
+    public void findByRange() {
+        LocalDateTime start = getLocalDateTime(2023, 3, 19, 3, 5);
+        LocalDateTime end = getLocalDateTime(2023, 3, 20, 3, 5);
+        Member newMember = getNewMember();
+        Reservation reservation = getReservation(start, end, newMember);
+        reservationRepository.save(reservation);
+        List<Reservation> findRange = reservationRepository.findByRange(
+                LocalDateTime.of(2023, 12, 1, 1, 1),
+                LocalDateTime.of(2024, 1, 1, 1, 1)
+        );
+
+        for (Reservation reservation1 : findRange) {
+            System.out.println("startAt = " + reservation1.getStartAt());
+            System.out.println("endAt = " + reservation1.getEndAt());
+        }
+
     }
 
 }

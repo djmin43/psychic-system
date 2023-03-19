@@ -18,10 +18,8 @@ public class Reservation {
     @Column(name = "reservation_id")
     private Long id;
 
-    @NotBlank
     private LocalDateTime startAt;
 
-    @NotBlank
     private LocalDateTime endAt;
 
     @ManyToOne(fetch = FetchType.LAZY)

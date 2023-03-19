@@ -3,7 +3,6 @@ package mindongjoon.parkinglot.service;
 import lombok.RequiredArgsConstructor;
 import mindongjoon.parkinglot.domain.Car;
 import mindongjoon.parkinglot.domain.Member;
-import mindongjoon.parkinglot.repository.CarRepository;
 import mindongjoon.parkinglot.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,6 +37,5 @@ public class MemberService {
     public void addCar(Long memberId, Car car) {
         memberRepository.saveCar(memberId, car);
     }
-
 
 }

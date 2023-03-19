@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import mindongjoon.parkinglot.domain.Car;
 import mindongjoon.parkinglot.domain.Member;
+import mindongjoon.parkinglot.domain.Reservation;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
