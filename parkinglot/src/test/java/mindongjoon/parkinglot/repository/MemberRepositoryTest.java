@@ -1,5 +1,6 @@
 package mindongjoon.parkinglot.repository;
 
+import mindongjoon.parkinglot.domain.Car;
 import mindongjoon.parkinglot.domain.Member;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
@@ -23,9 +24,11 @@ public class MemberRepositoryTest {
     @Autowired
     MemberRepository memberRepository;
 
+    @Autowired
+    CarRepository carRepository;
+
 
     @Test
-    @Rollback(value = false)
     public void save() {
         Member newMember = getNewMember();
         assertThat(newMember.getName()).isEqualTo("min");
@@ -46,4 +49,20 @@ public class MemberRepositoryTest {
         System.out.println("newMemberId = " + newMember.getId());
         assertThat(findMember.getId()).isEqualTo(newMember.getId());
     }
+
+    @Test
+    public void saveCar() {
+        Member newMember = getNewMember();
+        Car newCar = getNewCar();
+        memberRepository.saveCar(newMember.getId(), newCar);
+        assertThat(newMember.getCars().size()).isEqualTo(1);
+    }
+    private Car getNewCar() {
+        Member newMember = Member.createMember("min", "1234", "dj.min43@gmail.com");
+        Car newCar = Car.createCar("서울 나 1234", "아반떼", "testImageUrl", newMember);
+        carRepository.save(newCar);
+        return newCar;
+    }
+
+
 }
