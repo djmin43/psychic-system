@@ -78,6 +78,8 @@ public class ReservationRepositoryTest {
             System.out.println("endAt = " + reservation1.getEndAt());
         }
 
+        assertThat(findRange.size()).isEqualTo(0);
+
     }
 
 }
