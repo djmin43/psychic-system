@@ -1,10 +1,8 @@
 package mindongjoon.parkinglot.domain;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.ErrorResponseException;
 
 import java.time.LocalDateTime;
 
@@ -36,8 +34,6 @@ public class Reservation {
         reservation.setEndAt(endAt);
         reservation.setMember(member);
         return reservation;
-
-
     }
 
 
