@@ -52,13 +52,18 @@ public class ReservationService {
      * 예약 취소 by id
      */
     @Transactional
-    public void cancel(Long id) {
+    public void cancelById(Long id) {
         reservationRepository.delete(id);
     }
 
     /**
      * 예약 취소 by Dates
      */
+    @Transactional
+    public void cancelByDates(LocalDateTime startAt, LocalDateTime endAt) {
+        List<Reservation> findByRange = reservationRepository.findByRange(startAt, endAt);
+        findByRange.stream().map(Reservation::getId).forEach(reservationRepository::delete);
+    }
 
 
 
