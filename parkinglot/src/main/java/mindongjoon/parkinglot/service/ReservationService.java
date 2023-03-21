@@ -34,8 +34,13 @@ public class ReservationService {
     }
 
     /**
-     * 반복예약
+     * 벌크예약 by Dates
      */
+    @Transactional
+    public void addBulk(List<Reservation> reservations) {
+        reservations.forEach(reservationRepository::save);
+    }
+
 
     /**
      * 예약변경
