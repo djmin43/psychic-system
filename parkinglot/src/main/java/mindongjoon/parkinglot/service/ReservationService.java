@@ -70,7 +70,4 @@ public class ReservationService {
         findByRange.stream().map(Reservation::getId).forEach(reservationRepository::delete);
     }
 
-
-
-
 }
