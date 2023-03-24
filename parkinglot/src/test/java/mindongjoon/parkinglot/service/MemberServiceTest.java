@@ -46,13 +46,12 @@ public class MemberServiceTest {
         Member newMember = createNewMember();
         memberService.join(newMember);
         Car car1 = Car.createCar("서울 나 1234", "아반떼", "testImageUrl");
-        Car car2 = Car.createCar("서울 나 1234", "아반떼", "testImageUrl");
+        Car car2 = Car.createCar("서울 나 3234", "그랜져", "testImageUrl");
         memberService.addCar(newMember.getId(), car1);
         memberService.addCar(newMember.getId(), car2);
         int carsSize = newMember.getCars().size();
         assertThat(carsSize).isEqualTo(2);
         assertThat(carsSize).isNotEqualTo(1);
         assertThat(carsSize).isNotEqualTo(0);
-
     }
 }
