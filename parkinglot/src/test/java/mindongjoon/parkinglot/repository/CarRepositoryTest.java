@@ -31,8 +31,7 @@ public class CarRepositoryTest {
     }
 
     private Car getNewCar() {
-        Member newMember = Member.createMember("min", "1234", "dj.min43@gmail.com");
-        Car newCar = Car.createCar("서울 나 1234", "아반떼", "testImageUrl", newMember);
+        Car newCar = Car.createCar("서울 나 1234", "아반떼", "testImageUrl");
         carRepository.save(newCar);
         return newCar;
     }
