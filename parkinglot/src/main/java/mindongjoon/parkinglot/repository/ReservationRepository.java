@@ -27,6 +27,11 @@ public class ReservationRepository {
         return em.find(Reservation.class, id);
     }
 
+    public List<Reservation> findAll() {
+        return em.createQuery("SELECT u FROM Reservation u", Reservation.class)
+                .getResultList();
+    }
+
     public List<Reservation> findByRange(LocalDateTime startAt, LocalDateTime endAt) {
         return em.createQuery("SELECT u FROM Reservation u WHERE u.startAt > :date1 AND u.endAt < :date2", Reservation.class)
                 .setParameter("date1", startAt)

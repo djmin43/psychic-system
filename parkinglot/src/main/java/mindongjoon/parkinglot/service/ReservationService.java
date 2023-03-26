@@ -25,6 +25,13 @@ public class ReservationService {
     }
 
     /**
+     * 예약 리스트 조회 all
+     */
+    public List<Reservation> getAll() {
+        return reservationRepository.findAll();
+    }
+
+    /**
      * 예약하기
      */
     @Transactional
