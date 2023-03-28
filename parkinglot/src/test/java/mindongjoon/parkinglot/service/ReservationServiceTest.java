@@ -11,6 +11,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -68,6 +69,22 @@ public class ReservationServiceTest {
 
     @Test
     public void addBulk() {
+        Member newMember = createNewMember();
+        Reservation reservation1 = createNewReservation(
+                LocalDateTime.of(2023, 3, 19, 1, 2),
+                LocalDateTime.of(2023, 3, 20, 1, 2),
+                newMember);
+        Reservation reservation2 = createNewReservation(
+                LocalDateTime.of(2023, 3, 19, 1, 2),
+                LocalDateTime.of(2023, 4, 20, 1, 2),
+                newMember);
+        ArrayList<Reservation> bulk = new ArrayList<>(0);
+        bulk.add(reservation1);
+        bulk.add(reservation2);
+        reservationService.addBulk(bulk);
+        List<Reservation> all = reservationService.getAll();
+        System.out.println("all = " + all.size());
+
     }
 
     @Test
