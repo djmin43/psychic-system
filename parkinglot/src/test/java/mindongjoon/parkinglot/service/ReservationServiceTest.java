@@ -29,6 +29,22 @@ public class ReservationServiceTest {
 
     @Test
     public void getByRange() {
+        Member newMember = createNewMember();
+        IntStream
+                .range(0, 8)
+                .mapToObj(i -> newMember)
+                .forEach(this::createNew);
+        List<Reservation> inRange = reservationService.getByRange(
+                LocalDateTime.of(2020, 01, 01, 01, 01),
+                LocalDateTime.of(2024, 12, 31, 12, 00)
+        );
+        List<Reservation> outOfRange = reservationService.getByRange(
+                LocalDateTime.of(2024, 01, 01, 01, 01),
+                LocalDateTime.of(2024, 12, 31, 12, 00)
+        );
+
+        assertThat(inRange.size()).isEqualTo(8);
+        assertThat(outOfRange.size()).isEqualTo(0);
     }
 
     @Test
