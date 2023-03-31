@@ -94,6 +94,7 @@ public class ReservationServiceTest {
                 LocalDateTime.of(2023, 3, 20, 1, 2),
                 newMember);
         reservationService.add(reservation);
+        System.out.println("reservation = " + reservation.getMember().getName());
         assertThat(reservation.getStartAt()).isEqualTo(LocalDateTime.of(2023, 3, 19, 1, 2));
         Long changeId = reservationService.change(reservation.getId(),
                 LocalDateTime.of(2024, 3, 19, 1, 2),
@@ -102,6 +103,11 @@ public class ReservationServiceTest {
 
         assertThat(byId.getStartAt()).isEqualTo(LocalDateTime.of(2024, 3, 19, 1, 2));
         assertThat(byId.getEndAt()).isEqualTo(LocalDateTime.of(2024, 3, 20, 1, 2));
+
+        // make sure the user has only one reservation
+//        System.out.println("byId = " + byId);
+
+        assertThat(newMember.getReservations().size()).isEqualTo(1);
     }
 
     @Test

@@ -53,7 +53,6 @@ public class ReservationService {
     @Transactional
     public void addBulk(List<Reservation> reservations) {
         for (Reservation reservation : reservations) {
-            System.out.println("reservation = " + reservation);
             reservationRepository.save(reservation);
             Long id = reservation.getId();
             System.out.println("id = " + id);
