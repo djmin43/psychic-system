@@ -18,6 +18,13 @@ public class ReservationService {
     private final ReservationRepository reservationRepository;
 
     /**
+     * 예약 조회 by id
+     */
+    public Reservation getById(Long id) {
+        return reservationRepository.findOne(id);
+    }
+
+    /**
      * 예약 리스트 조회 by Dates
      */
     public List<Reservation> getByRange(LocalDateTime startAt, LocalDateTime endAt) {

@@ -83,12 +83,25 @@ public class ReservationServiceTest {
         bulk.add(reservation2);
         reservationService.addBulk(bulk);
         List<Reservation> all = reservationService.getAll();
-        System.out.println("all = " + all.size());
-
+        assertThat(all.size()).isEqualTo(2);
     }
 
     @Test
     public void change() {
+        Member newMember = createNewMember();
+        Reservation reservation = createNewReservation(
+                LocalDateTime.of(2023, 3, 19, 1, 2),
+                LocalDateTime.of(2023, 3, 20, 1, 2),
+                newMember);
+        reservationService.add(reservation);
+        assertThat(reservation.getStartAt()).isEqualTo(LocalDateTime.of(2023, 3, 19, 1, 2));
+        Long changeId = reservationService.change(reservation.getId(),
+                LocalDateTime.of(2024, 3, 19, 1, 2),
+                LocalDateTime.of(2024, 3, 20, 1, 2));
+        Reservation byId = reservationService.getById(changeId);
+
+        assertThat(byId.getStartAt()).isEqualTo(LocalDateTime.of(2024, 3, 19, 1, 2));
+        assertThat(byId.getEndAt()).isEqualTo(LocalDateTime.of(2024, 3, 20, 1, 2));
     }
 
     @Test
