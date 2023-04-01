@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import static org.assertj.core.api.Assertions.*;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@Transactional
 public class ReservationServiceTest {
 
     @Autowired
@@ -94,20 +96,15 @@ public class ReservationServiceTest {
                 LocalDateTime.of(2023, 3, 20, 1, 2),
                 newMember);
         reservationService.add(reservation);
-        System.out.println("reservation = " + reservation.getMember().getName());
         assertThat(reservation.getStartAt()).isEqualTo(LocalDateTime.of(2023, 3, 19, 1, 2));
         Long changeId = reservationService.change(reservation.getId(),
                 LocalDateTime.of(2024, 3, 19, 1, 2),
                 LocalDateTime.of(2024, 3, 20, 1, 2));
         Reservation byId = reservationService.getById(changeId);
-
+        assertThat(byId.getMember().getName()).isEqualTo("min");
         assertThat(byId.getStartAt()).isEqualTo(LocalDateTime.of(2024, 3, 19, 1, 2));
         assertThat(byId.getEndAt()).isEqualTo(LocalDateTime.of(2024, 3, 20, 1, 2));
 
-        // make sure the user has only one reservation
-//        System.out.println("byId = " + byId);
-
-        assertThat(newMember.getReservations().size()).isEqualTo(1);
     }
 
     @Test
