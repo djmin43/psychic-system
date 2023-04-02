@@ -1,5 +1,6 @@
 package mindongjoon.parkinglot.service;
 
+import jakarta.persistence.EntityManager;
 import mindongjoon.parkinglot.domain.Member;
 import mindongjoon.parkinglot.domain.Reservation;
 import org.junit.Test;
@@ -7,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +30,9 @@ public class ReservationServiceTest {
 
     @Autowired
     MemberService memberService;
+
+    @Autowired
+    EntityManager em;
 
     @Test
     public void getByRange() {
@@ -66,6 +71,7 @@ public class ReservationServiceTest {
         createNew(newMember);
         List<Reservation> all = reservationService.getAll();
         assertThat(all).hasSize(1);
+        System.out.println("newMember = " + newMember.getReservations());
     }
 
     @Test
@@ -113,8 +119,10 @@ public class ReservationServiceTest {
                 LocalDateTime.of(2023, 3, 20, 1, 2),
                 newMember);
         reservationService.add(reservation);
-        System.out.println("newMember = " + newMember.getReservations());
-
+        Long memberId = reservation.getMember().getId();
+        Member findMember = memberService.find(memberId);
+        System.out.println("findMember = " + findMember.getName());
+        System.out.println("findMember = " + findMember.getReservations());
     }
 
     @Test
