@@ -2,7 +2,6 @@ package mindongjoon.parkinglot.service;
 
 import mindongjoon.parkinglot.domain.Member;
 import mindongjoon.parkinglot.domain.Reservation;
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -38,16 +37,16 @@ public class ReservationServiceTest {
                 .mapToObj(i -> newMember)
                 .forEach(this::createNew);
         List<Reservation> inRange = reservationService.getByRange(
-                LocalDateTime.of(2020, 01, 01, 01, 01),
-                LocalDateTime.of(2024, 12, 31, 12, 00)
+                LocalDateTime.of(2020, 1, 1, 1, 1),
+                LocalDateTime.of(2024, 12, 31, 12, 0)
         );
         List<Reservation> outOfRange = reservationService.getByRange(
-                LocalDateTime.of(2024, 01, 01, 01, 01),
-                LocalDateTime.of(2024, 12, 31, 12, 00)
+                LocalDateTime.of(2024, 1, 1, 1, 1),
+                LocalDateTime.of(2024, 12, 31, 12, 0)
         );
 
-        assertThat(inRange.size()).isEqualTo(8);
-        assertThat(outOfRange.size()).isEqualTo(0);
+        assertThat(inRange).hasSize(8);
+        assertThat(outOfRange).isEmpty();
     }
 
     @Test
@@ -58,7 +57,7 @@ public class ReservationServiceTest {
                 .mapToObj(i -> newMember)
                 .forEach(this::createNew);
         List<Reservation> all = reservationService.getAll();
-        assertThat(all.size()).isEqualTo(2);
+        assertThat(all).hasSize(2);
     }
 
     @Test
@@ -66,7 +65,7 @@ public class ReservationServiceTest {
         Member newMember = createNewMember();
         createNew(newMember);
         List<Reservation> all = reservationService.getAll();
-        assertThat(all.size()).isEqualTo(1);
+        assertThat(all).hasSize(1);
     }
 
     @Test
@@ -85,7 +84,7 @@ public class ReservationServiceTest {
         bulk.add(reservation2);
         reservationService.addBulk(bulk);
         List<Reservation> all = reservationService.getAll();
-        assertThat(all.size()).isEqualTo(2);
+        assertThat(all).hasSize(2);
     }
 
     @Test
@@ -104,11 +103,18 @@ public class ReservationServiceTest {
         assertThat(byId.getMember().getName()).isEqualTo("min");
         assertThat(byId.getStartAt()).isEqualTo(LocalDateTime.of(2024, 3, 19, 1, 2));
         assertThat(byId.getEndAt()).isEqualTo(LocalDateTime.of(2024, 3, 20, 1, 2));
-
     }
 
     @Test
     public void cancelById() {
+        Member newMember = createNewMember();
+        Reservation reservation = createNewReservation(
+                LocalDateTime.of(2023, 3, 19, 1, 2),
+                LocalDateTime.of(2023, 3, 20, 1, 2),
+                newMember);
+        reservationService.add(reservation);
+        System.out.println("newMember = " + newMember.getReservations());
+
     }
 
     @Test
