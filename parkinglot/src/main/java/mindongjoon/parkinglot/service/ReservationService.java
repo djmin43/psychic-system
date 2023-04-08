@@ -59,7 +59,6 @@ public class ReservationService {
         }
     }
 
-
     /**
      * 예약변경
      */
@@ -81,11 +80,12 @@ public class ReservationService {
 
     /**
      * 예약 취소 by Dates
+     * 사실 필요없음.
      */
-    @Transactional
-    public void cancelByDates(LocalDateTime startAt, LocalDateTime endAt) {
-        List<Reservation> findByRange = reservationRepository.findByRange(startAt, endAt);
-        findByRange.stream().map(Reservation::getId).forEach(reservationRepository::delete);
-    }
+//    @Transactional
+//    public void cancelByDates(LocalDateTime startAt, LocalDateTime endAt) {
+//        List<Reservation> findByRange = reservationRepository.findByRange(startAt, endAt);
+//        findByRange.stream().map(Reservation::getId).forEach(reservationRepository::delete);
+//    }
 
 }

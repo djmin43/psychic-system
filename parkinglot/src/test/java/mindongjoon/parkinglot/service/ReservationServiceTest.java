@@ -8,7 +8,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -71,7 +70,7 @@ public class ReservationServiceTest {
         createNew(newMember);
         List<Reservation> all = reservationService.getAll();
         assertThat(all).hasSize(1);
-        System.out.println("newMember = " + newMember.getReservations());
+        assertThat(newMember.getReservations()).hasSize(1);
     }
 
     @Test
@@ -109,6 +108,9 @@ public class ReservationServiceTest {
         assertThat(byId.getMember().getName()).isEqualTo("min");
         assertThat(byId.getStartAt()).isEqualTo(LocalDateTime.of(2024, 3, 19, 1, 2));
         assertThat(byId.getEndAt()).isEqualTo(LocalDateTime.of(2024, 3, 20, 1, 2));
+
+        // member test
+        assertThat(newMember.getReservations()).hasSize(1);
     }
 
     @Test
@@ -125,9 +127,18 @@ public class ReservationServiceTest {
         System.out.println("findMember = " + findMember.getReservations());
     }
 
-    @Test
-    public void cancelByDates() {
-    }
+//    @Test
+//    public void cancelByDates() {
+//        Member newMember = createNewMember();
+//        Reservation reservation = createNewReservation(
+//                LocalDateTime.of(2023, 3, 19, 1, 2),
+//                LocalDateTime.of(2023, 3, 20, 1, 2),
+//                newMember);
+//        reservationService.add(reservation);
+//        // before cancellation
+//        assertThat(newMember.getReservations()).hasSize(1);
+//        // cancel false dates
+//    }
 
     private static Reservation createNewReservation(LocalDateTime start, LocalDateTime end, Member newMember) {
         return Reservation.createReservation(start, end, newMember);
