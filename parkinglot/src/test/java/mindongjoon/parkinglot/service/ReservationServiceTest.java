@@ -104,7 +104,6 @@ public class ReservationServiceTest {
         assertThat(byId.getMember().getName()).isEqualTo("min");
         assertThat(byId.getStartAt()).isEqualTo(LocalDateTime.of(2024, 3, 19, 1, 2));
         assertThat(byId.getEndAt()).isEqualTo(LocalDateTime.of(2024, 3, 20, 1, 2));
-
     }
 
     @Test
