@@ -24,6 +24,12 @@ public class Reservation {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    // 연관관계 메소드 -- 아주 중요함!!
+    public void setMember(Member member) {
+        this.member = member;
+        member.getReservations().add(this);
+    }
+
     // domain methods
     public static Reservation createReservation(LocalDateTime startAt, LocalDateTime endAt, Member member) {
         if (startAt.isAfter(endAt)) {
