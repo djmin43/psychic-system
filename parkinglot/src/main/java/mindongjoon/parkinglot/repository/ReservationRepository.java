@@ -42,6 +42,7 @@ public class ReservationRepository {
     @Transactional
     public void delete(Long id) {
         Reservation reservation = em.find(Reservation.class, id);
+        reservation.setMember(null);
         em.remove(reservation);
     }
 

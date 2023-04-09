@@ -30,6 +30,7 @@ public class Reservation {
         member.getReservations().add(this);
     }
 
+
     // domain methods
     public static Reservation createReservation(LocalDateTime startAt, LocalDateTime endAt, Member member) {
         if (startAt.isAfter(endAt)) {
