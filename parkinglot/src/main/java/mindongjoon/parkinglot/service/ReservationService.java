@@ -3,6 +3,7 @@ package mindongjoon.parkinglot.service;
 import lombok.RequiredArgsConstructor;
 import mindongjoon.parkinglot.domain.Member;
 import mindongjoon.parkinglot.domain.Reservation;
+import mindongjoon.parkinglot.repository.MemberRepository;
 import mindongjoon.parkinglot.repository.ReservationRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,7 @@ import java.util.List;
 public class ReservationService {
 
     private final ReservationRepository reservationRepository;
+    private final MemberRepository memberRepository;
 
     /**
      * 예약 조회 by id
@@ -78,10 +80,10 @@ public class ReservationService {
         reservationRepository.delete(id);
     }
 
-    /**
-     * 예약 취소 by Dates
-     * 사실 필요없음.
-     */
+//    do we need this?
+//    /**
+//     * 예약 취소 by Dates
+//     */
 //    @Transactional
 //    public void cancelByDates(LocalDateTime startAt, LocalDateTime endAt) {
 //        List<Reservation> findByRange = reservationRepository.findByRange(startAt, endAt);

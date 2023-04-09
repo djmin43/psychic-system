@@ -43,20 +43,4 @@ public class MemberService {
         memberRepository.saveCar(memberId, car);
     }
 
-    /**
-     * 예약 취소 by date
-     */
-    @Transactional
-    public void cancelReservations(Long memberId, LocalDateTime startAt, LocalDateTime endAt) {
-        Member member = memberRepository.findOne(memberId);
-        List<Reservation> reservations = member.getReservations();
-        List<Reservation> newReservations = new ArrayList<>();
-        for (Reservation reservation : reservations) {
-           if (!reservation.getStartAt().isBefore(startAt) && !reservation.getEndAt().isAfter(endAt)) {
-               newReservations.add(reservation);
-           }
-        }
-        member.setReservations(newReservations);
-    }
-
 }
