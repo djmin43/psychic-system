@@ -24,6 +24,9 @@ public class Reservation {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @Enumerated(EnumType.STRING)
+    private ReservationStatus status; // 예약 상태 [BOOK, CANCEL]
+
     // 연관관계 메소드 -- 아주 중요함!!
     public void setMember(Member member) {
         this.member = member;

@@ -123,22 +123,20 @@ public class ReservationServiceTest {
         reservationService.add(reservation);
         Long memberId = reservation.getMember().getId();
         Member findMember = memberService.find(memberId);
-        System.out.println("findMember = " + findMember.getName());
-        System.out.println("findMember = " + findMember.getReservations());
-    }
+        // assert that the member has one reservation
+        assertThat(findMember.getReservations()).hasSize(1);
 
-//    @Test
-//    public void cancelByDates() {
-//        Member newMember = createNewMember();
-//        Reservation reservation = createNewReservation(
-//                LocalDateTime.of(2023, 3, 19, 1, 2),
-//                LocalDateTime.of(2023, 3, 20, 1, 2),
-//                newMember);
-//        reservationService.add(reservation);
-//        // before cancellation
-//        assertThat(newMember.getReservations()).hasSize(1);
-//        // cancel false dates
-//    }
+        // cancel all reservations by id
+        List<Reservation> reservations = findMember.getReservations();
+        for (Reservation reservation1 : reservations) {
+            System.out.println("reservation1 = " + reservation1.getId());
+            reservationService.cancelById(reservation1.getId());
+        }
+
+
+//        assertThat(findMember.getReservations()).hasSize(0);
+
+    }
 
     private static Reservation createNewReservation(LocalDateTime start, LocalDateTime end, Member newMember) {
         return Reservation.createReservation(start, end, newMember);

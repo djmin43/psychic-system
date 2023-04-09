@@ -80,14 +80,4 @@ public class ReservationService {
         reservationRepository.delete(id);
     }
 
-//    do we need this?
-//    /**
-//     * 예약 취소 by Dates
-//     */
-//    @Transactional
-//    public void cancelByDates(LocalDateTime startAt, LocalDateTime endAt) {
-//        List<Reservation> findByRange = reservationRepository.findByRange(startAt, endAt);
-//        findByRange.stream().map(Reservation::getId).forEach(reservationRepository::delete);
-//    }
-
 }
