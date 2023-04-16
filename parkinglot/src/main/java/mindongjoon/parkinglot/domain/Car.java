@@ -26,12 +26,11 @@ public class Car {
     private Member member;
 
     // domain method
-    public static Car createCar(String registrationNumber, String carName, String imageUrl, Member member) {
+    public static Car createCar(String registrationNumber, String carName, String imageUrl) {
         Car car = new Car();
         car.setRegistrationNumber(registrationNumber);
         car.setCarName(carName);
         car.setImageUrl(imageUrl);
-        car.setMember(member);
         return car;
     }
 
