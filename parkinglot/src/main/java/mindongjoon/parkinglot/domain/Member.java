@@ -38,13 +38,4 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Reservation> reservations = new ArrayList<>();
 
-
-    // domain methods
-    public static Member createMember(String name, String password, String email) {
-        Member member = new Member();
-        member.setName(name);
-        member.setEmail(email);
-        member.setPassword(password);
-        return member;
-    }
 }
